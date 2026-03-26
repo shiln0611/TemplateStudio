@@ -13,8 +13,21 @@ from datetime import datetime, timedelta
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-MAPS = ["SPLIT", "BIND", "HAVEN", "LOTUS", "FRACTURE", "PEARL", "BREEZE"]
-
+MAPS = ["SPLIT", "BIND", "HAVEN", "LOTUS", "FRACTURE", "PEARL", "BREEZE", "ICEBOX", "SUNSET", "ABYSS", "CORRORD", "ASCENT"]
+MAPS_CN = {
+    "SPLIT": "雙塔迷城SPLIT",
+    "BIND": "劫境之地BIND",
+    "HAVEN": "遺落境地HAVEN",
+    "LOTUS": "蓮華古城LOTUS",
+    "FRACTURE": "天漠之峽FRACTURE",
+    "PEARL": "深海遺珠PEARL",
+    "BREEZE": "熱帶樂園BREEZE",
+    "ICEBOX": "極地寒港ICEBOX",
+    "SUNSET": "日落之城SUNSET",
+    "ABYSS": "深窟幽境ABYSS",
+    "CORRORD": "晶蝕之地CORRORD",
+	"ASCENT": "義境空島ASCENT"
+}
 SIDES = ["def vs att", "att vs def"]
 
 # 日期快速選擇
@@ -28,7 +41,7 @@ def get_date(option):
 
 @bot.event
 async def on_ready():
-    await bot.tree.sync()
+    await bot.tree.sync(guild=None)  # 全域同步（比較慢）
     print(f"登入成功：{bot.user}")
 
 # ====================
@@ -74,8 +87,8 @@ async def scrim1(interaction: discord.Interaction, date: str, time: str, maps: i
     rounds="幾回合"
 )
 @app_commands.choices(
-    map1=[app_commands.Choice(name=m, value=m) for m in MAPS],
-    map2=[app_commands.Choice(name=m, value=m) for m in MAPS],
+	map1=[app_commands.Choice(name=MAPS_CN[m], value=m) for m in MAPS],
+    map2=[app_commands.Choice(name=MAPS_CN[m], value=m) for m in MAPS],
 )
 async def scrim2(
     interaction: discord.Interaction,
@@ -91,22 +104,22 @@ async def scrim2(
 ):
     date = get_date(date)
 
-    text = f"""• 隊伍｜DTG vs {opponent}
-    • 日期｜{date}
-    • 時間｜{time}
-    • 賽制｜{maps}map {rounds}r
-    • 排位｜immo+
-    • 伺服器｜HK
-    • coach ✓   OB ✘
+    text = f"""
+* 隊伍｜DTG vs {opponent}
+* **日期｜{date}**
+* **時間｜{time}**
+* 賽制｜{maps}map {rounds}r
+* 排位｜immo+
+* 伺服器｜HK
+* coach ✓   OB ✘**
     
-    > **第一場**
-    > 地圖：{map1.value}
-    > 攻守方：{side1}
-    
-    > **第二場**
-    > 地圖：{map2.value}
-    > 攻守方：{side2}
-    """
+> ## **第一場**
+> 地圖：{map1.value}
+> 攻守方：{side1}    
+> ## **第二場**
+> 地圖：{map2.value}
+> 攻守方：{side2}
+"""
     await interaction.response.send_message(text)
 
 # ====================
@@ -134,13 +147,13 @@ async def scrim2(
     map3_att="決勝圖 ATT"
 )
 @app_commands.choices(
-    ban_a1=[app_commands.Choice(name=m, value=m) for m in MAPS],
-    ban_b1=[app_commands.Choice(name=m, value=m) for m in MAPS],
-    map1=[app_commands.Choice(name=m, value=m) for m in MAPS],
-    map2=[app_commands.Choice(name=m, value=m) for m in MAPS],
-    ban_a2=[app_commands.Choice(name=m, value=m) for m in MAPS],
-    ban_b2=[app_commands.Choice(name=m, value=m) for m in MAPS],
-    decider=[app_commands.Choice(name=m, value=m) for m in MAPS],
+    ban_a1=[app_commands.Choice(name=MAPS_CN[m], value=m) for m in MAPS],
+    ban_b1=[app_commands.Choice(name=MAPS_CN[m], value=m) for m in MAPS],
+    map1=[app_commands.Choice(name=MAPS_CN[m], value=m) for m in MAPS],
+    map2=[app_commands.Choice(name=MAPS_CN[m], value=m) for m in MAPS],
+    ban_a2=[app_commands.Choice(name=MAPS_CN[m], value=m) for m in MAPS],
+    ban_b2=[app_commands.Choice(name=MAPS_CN[m], value=m) for m in MAPS],
+    decider=[app_commands.Choice(name=MAPS_CN[m], value=m) for m in MAPS],
 
     map1_att=[
         app_commands.Choice(name="Team A", value="A"),
@@ -218,5 +231,5 @@ async def scrim3(
 """
 
     await interaction.response.send_message(text)
-
+    
 bot.run(os.getenv("DISCORD_TOKEN"))
