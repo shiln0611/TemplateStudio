@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-MAPS = ["SPLIT", "BIND", "HAVEN", "LOTUS", "FRACTURE", "PEARL", "BREEZE", "ICEBOX", "SUNSET", "ABYSS", "CORRORD", "ASCENT"]
+MAPS = ["SPLIT", "BIND", "HAVEN", "LOTUS", "FRACTURE", "PEARL", "BREEZE", "ICEBOX", "SUNSET", "ABYSS", "CORRORD", "ASCENT","尚未選擇"]
 MAPS_CN = {
     "SPLIT": "雙塔迷城SPLIT",
     "BIND": "劫境之地BIND",
@@ -26,9 +26,10 @@ MAPS_CN = {
     "SUNSET": "日落之城SUNSET",
     "ABYSS": "深窟幽境ABYSS",
     "CORRORD": "晶蝕之地CORRORD",
-	"ASCENT": "義境空島ASCENT"
+	"ASCENT": "義境空島ASCENT",
+	"尚未選擇": "尚未選擇"
 }
-SIDES = ["def vs att", "att vs def"]
+SIDES = ["def vs att", "att vs def", "尚未選擇（𝚍𝚎𝚏 𝚟𝚜 𝚊𝚝𝚝）"]
 
 # 日期快速選擇
 def get_date(option):
@@ -111,7 +112,7 @@ async def scrim2(
 * 賽制｜{maps}map {rounds}r
 * 排位｜immo+
 * 伺服器｜HK
-* coach ✓   OB ✘**
+* COACH ✓   OB ✘
     
 > ## **第一場**
 > 地圖：{map1.value}
