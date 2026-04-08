@@ -59,7 +59,7 @@ async def scrim1(interaction: discord.Interaction, date: str, time: str, maps: i
 
     date = get_date(date)
 
-    text = f"""•••´º´•» 𝐋𝐨𝐨𝐤𝐢𝐧𝐠 𝐟𝐨𝐫 𝐬𝐫𝐢𝐦 «•´º´•••
+    text = f"""•••´º´•» 𝐋𝐨𝐨𝐤𝐢𝐧𝐠 𝐟𝐨𝐫 𝐬𝒄𝐫𝐢𝐦 «•´º´•••
 
 𝑻𝒆𝒂𝒎：𝑫𝑻𝑮(𝑮𝑪)
 𝑹𝒂𝒏𝒌：𝒂𝒔𝒄~𝒊𝒎𝒎𝒐
